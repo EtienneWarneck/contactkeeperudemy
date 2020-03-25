@@ -1,4 +1,4 @@
-@import url('https://https://fonts.google.com/specimen/Montserrat?selection.family=Montserrat');
+/* @import url('https://https://fonts.google.com/specimen/Montserrat?selection.family=Montserrat'); */
 
 /* Global Styles */
 :root {
@@ -16,7 +16,7 @@
 }
 
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-size: 1rem;
   line-height: 1.6;
   background-color: #fff;

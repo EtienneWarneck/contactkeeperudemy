@@ -1,22 +1,27 @@
-import React, {Fragment, useContext} from 'react'
-import ContactContext from '../../context/contact/ContactContext';
+import React, { Fragment, useContext } from 'react'; //HOOKS
+import ContactItem from './ContactItem';
+import ContactContext from '../../context/contact/contactContext';
 
 
 
 const Contacts = () => {
-    const ContactContext = useContext(ContactContext); //access to every action associated with context
 
-    const {contacts } = contactContext;
+    //Initialize context:
+    const contactContext = useContext(ContactContext); //c C
+    //now we can access any method associated with that const
+
+    //Accessing contacts array, destructuring
+    const { contacts } = contactContext;
+
+
     return (
         <div>
             <Fragment>
                 {contacts.map(contact => (
-                    <h3> {Contact.name}</h3>
-                )
-                )}
+                    //convert js array from ContactState with js map function and to return JSX and to embed in Homepage
+                    <ContactItem key={contact.id} contactPassed={contact} />
+                ))}
             </Fragment>
-
-
         </div>
     )
 }
