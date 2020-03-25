@@ -1,5 +1,5 @@
 import React, { useReducer } from 'react'; //access state and dispatch
-import uuid from 'uuid'; //random id for hard coded
+import uuid from 'uuid/v4'; //random id for hard coded
 import ContactContext from './contactContext';
 import contactReducer from "./contactReducer";
 import {
@@ -41,14 +41,16 @@ const ContactState = props => {
     };
 
     //initializing userReducer HOOK, passing initialState as a second argument
-    const [state, dispatch] = useReducer(contactReducer, initialState); //dispatch objects to our reducer
+    const [state, dispatch] = useReducer(contactReducer, initialState); //dispatch ("envoyer") objects to our reducer
 
         //ACTIONS
     //Add contact
-    // const addContact = contact => {
-    //     contact.id = uuid.v4();
-    //     dispatch({ type: ADD_CONTACT, payload: contact});
-    // };
+
+    const addContact = contact => {
+        // contact.id = uuid.v4(); //RandomID will be removed when we use MongoDB
+        dispatch({ type: ADD_CONTACT, payload: contact}); //dispatch to reducer
+    };
+
     // //Delete contact
     // const deleteContact = id => {
     //     dispatch({ type: DELETE_CONTACT, payload: id});
@@ -60,8 +62,12 @@ const ContactState = props => {
 
     return ( //wrap entire app with this context
         <ContactContext.Provider value = {
-            {contacts: state.contacts}
-            } > {console.log("ContactState PAGE, state.contacts", state.contacts)}
+            {
+                contacts: state.contacts,
+                addContact
+            }} 
+            > 
+            {console.log("ContactState PAGE, state.contacts", state.contacts)}
         {props.children}
       </ContactContext.Provider>
     )
