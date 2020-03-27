@@ -1,5 +1,5 @@
 import React, { useReducer } from 'react'; //access state and dispatch
-import { uuid, isUuid } from 'uuidv4'; //random id for hard coded
+import { v4 as uuidv4 } from 'uuid'; //random id for hard coded
 import ContactContext from './contactContext';
 import contactReducer from "./contactReducer";
 import {
@@ -12,7 +12,7 @@ import {
     CLEAR_FILTER
 } from '../types';
 
-console.log(isUuid('75442486-0878-440c-9db1-a7006c25a39f'));
+console.log(uuidv4('75442486-0878-440c-9db1-a7006c25a39f')); //true 
 
 const ContactState = props => {
 
@@ -40,32 +40,30 @@ const ContactState = props => {
                 type: "professional"
             }
         ],
-        current: null 
-        //when Edit is clicked we want data to go in this piece of state and we can change UI based on that
+        current: null //when Edit is clicked we want data to go in this piece of state and we can change UI based on that
     };
 
     //USE REDUCER HOOK -------------------------------------------------------------------------------------------------
     const [state, dispatch] = useReducer(contactReducer, initialState); //dispatch ("envoyer") objects to our reducer
 
-    //ACTIONS 
-    //Add contact
+        //ACTIONS 
+            //Add LEFT, BUTTON: Add Contact
     const addContact = contact => {
-        contact.id = uuid.v4(); //RandomID will be removed when we use MongoDB
+        contact.id = uuidv4(); //RandomID will be removed when we use MongoDB
         dispatch({ type: ADD_CONTACT, payload: contact }); //2 values sent to reducer: perform 1 action, sent 1 data
     };
 
-    // //Delete contact
+         // //Delete RIGHT , BUTTON: Delete
     const deleteContact = id => {
         dispatch({ type: DELETE_CONTACT, payload: id }); // 2values sent to reducer
     };
 
-    //Set Current Contact INTO FORM = Edit existing contact
+        //Set Current RIGHT, BUTTON: Edit 
     const setCurrent = contact => {
         dispatch({ type: SET_CURRENT, payload: contact }); //dispatch to reducer
     };
 
-    //Clear Current Contact
-
+    //Clear Current LEFT, BUTTON: Clear ONLY used when current = 
     const clearCurrent = () => {
         dispatch({ type: CLEAR_CURRENT }); // 2values sent to reducer
     };
