@@ -1,5 +1,5 @@
 import React, { useReducer } from 'react'; //access state and dispatch
-import uuid from 'uuid/v4'; //random id for hard coded
+import { uuid, isUuid } from 'uuidv4'; //random id for hard coded
 import ContactContext from './contactContext';
 import contactReducer from "./contactReducer";
 import {
@@ -12,9 +12,11 @@ import {
     CLEAR_FILTER
 } from '../types';
 
+console.log(isUuid('75442486-0878-440c-9db1-a7006c25a39f'));
+
 const ContactState = props => {
 
-    const initialState ={
+    const initialState = {
         contacts: [
             {
                 id: 1,
@@ -37,39 +39,64 @@ const ContactState = props => {
                 phone: "333-333-3333",
                 type: "professional"
             }
-        ]
+        ],
+        current: null 
+        //when Edit is clicked we want data to go in this piece of state and we can change UI based on that
     };
 
-    //initializing userReducer HOOK, passing initialState as a second argument
+    //USE REDUCER HOOK -------------------------------------------------------------------------------------------------
     const [state, dispatch] = useReducer(contactReducer, initialState); //dispatch ("envoyer") objects to our reducer
 
-        //ACTIONS
+    //ACTIONS 
     //Add contact
-
     const addContact = contact => {
-        // contact.id = uuid.v4(); //RandomID will be removed when we use MongoDB
-        dispatch({ type: ADD_CONTACT, payload: contact}); //dispatch to reducer
+        contact.id = uuid.v4(); //RandomID will be removed when we use MongoDB
+        dispatch({ type: ADD_CONTACT, payload: contact }); //2 values sent to reducer: perform 1 action, sent 1 data
     };
 
     // //Delete contact
-    // const deleteContact = id => {
-    //     dispatch({ type: DELETE_CONTACT, payload: id});
-    //Set Current Contact
+    const deleteContact = id => {
+        dispatch({ type: DELETE_CONTACT, payload: id }); // 2values sent to reducer
+    };
+
+    //Set Current Contact INTO FORM = Edit existing contact
+    const setCurrent = contact => {
+        dispatch({ type: SET_CURRENT, payload: contact }); //dispatch to reducer
+    };
+
     //Clear Current Contact
+
+    const clearCurrent = () => {
+        dispatch({ type: CLEAR_CURRENT }); // 2values sent to reducer
+    };
+
+
     //Update Contact
+ const updateContact = contact => { 
+        dispatch({ type: UPDATE_CONTACT, payload: contact }); //#2 dispatch to the reducer 
+    };
+
+
     //Filter Contacs
+
+
     //Clear Filter
 
     return ( //wrap entire app with this context
-        <ContactContext.Provider value = {
+        <ContactContext.Provider value={
             {
                 contacts: state.contacts,
-                addContact
-            }} 
-            > 
+                current: state.current,
+                addContact,
+                deleteContact,
+                setCurrent, //to Edit existing contact
+                clearCurrent,
+                updateContact
+            }}
+        >
             {console.log("ContactState PAGE, state.contacts", state.contacts)}
-        {props.children}
-      </ContactContext.Provider>
+            {props.children}
+        </ContactContext.Provider>
     )
 }
 

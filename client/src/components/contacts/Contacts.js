@@ -18,7 +18,7 @@ const Contacts = () => {
         <div>
             <Fragment>
                 {contacts.map(contact => (
-                    //convert js array from ContactState with js map function and to return JSX and to embed in Homepage
+                    //map through array and create new array to display <Contacts/> component in Homepage
                     <ContactItem key={contact.id} contactPassed={contact} />
                 ))}
             </Fragment>

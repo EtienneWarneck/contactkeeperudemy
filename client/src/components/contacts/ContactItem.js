@@ -4,20 +4,19 @@ import ContactContext from '../../context/contact/contactContext';
 
 const ContactItem = ({ contactPassed }) => {   //{contactPassed} is the prop passed in from Contacts.js
 
-
+//USE CONTEXT
     const contactContext = useContext(ContactContext); //holds all the data
-    console.log("ContactItem PAGE, useContext(), ALL CONTACTS", contactContext)
+    // console.log("ContactItem PAGE, useContext(), ALL CONTACTS", contactContext)
     
-
+    const { deleteContact, setCurrent, clearCurrent } = contactContext; //create an action
+    
     const { id, name, email, phone, type } = contactPassed; //destructuring, EACH CONTACT
-    console.log("ContactItem PAGE, contactPassed, CONTACT #", contactPassed.id, contactPassed);
-
-
-    const { deleteContact } = contactContext; //destructuring,
+    // console.log("ContactItem PAGE, contactPassed, CONTACT #", contactPassed.id, contactPassed);
+    
     const onDelete = () => {
         deleteContact(id);
+        clearCurrent();
     }
-
 
     return (
         <div className='card bg-light'>
@@ -43,7 +42,7 @@ const ContactItem = ({ contactPassed }) => {   //{contactPassed} is the prop pas
             </ul>
 
             <p>
-                <button className="btn btn-dark btn-sm">Edit</button>
+                <button className="btn btn-dark btn-sm" onClick={ () => setCurrent(contactPassed)}>Edit</button>
                 <button className="btn btn-danger btn-sm" onClick={onDelete}>Delete</button>
             </p>
 
