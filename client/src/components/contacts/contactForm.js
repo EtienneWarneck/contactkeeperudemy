@@ -6,14 +6,23 @@ const ContactForm = () => {
 
     const contactContext = useContext(ContactContext);
 
+     //destructuring to unpack values into distinct variables:
+     const { addContact, updateContact, clearCurrent, current } = contactContext;
+    //--------------------------
+
+
     //BASIC HOOK - useState() - most important hook. FORMAT -> const [state, setState] = useState(intialValue)
-    //Used to add functionnality to functional component
-    //Returns 2 elements: current state (then updated state) and a FUNCTION that allows us to update the state
+    //Used to add functionnality to functional component.
+    // ALWAYS returns theses 2 elements:
+    // -- current state snapshot (updated state that survives re-renders of the component) 
+    // of the object, array, boolean...Can be initialized with any object (state in class-based component is always an object!)
+    // -- and a FUNCTION that allows us to update the state
     //to re-render the component. The function does not merge the content, it replaces it
     //Destructuring the array and name it whatever we want.
     //useState can be used as many times as we want. 
     //Multiple setState slices
-    const [contact, setContact] = useState({ //contact is now the CHANGING STATE OF THE FORM. setContact is 
+    //Independent from other places. So we can simply share functionalities between components.
+    const [contact, setContact] = useState({ //contact is the CHANGING STATE OF THE FORM. setContact is 
         name: '',
         email: '',
         phone: '',
@@ -22,9 +31,7 @@ const ContactForm = () => {
 
     // const [otherState, setOtherState] = useState('some other value')
 
-    //destructuring to unpack values into distinct variables.
-    const { addContact, updateContact, clearCurrent, current } = contactContext;
-
+   
     //
     //useEffect accepts a function that will run after and for every render cycle.
 
@@ -71,8 +78,9 @@ const ContactForm = () => {
                 type="text"
                 placeholder="name"
                 name="name"
-                value={name}
-                onChange={onChange}
+                value={name} //contact.name
+                onChange={onChange} //setContact function is called via onChange
+                // same as onChange={event => setContact({event.target.value})
             />
             <input
                 type="email"

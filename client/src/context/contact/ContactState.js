@@ -43,7 +43,7 @@ const ContactState = props => {
         current: null //when Edit is clicked we want data to go in this piece of state and we can change UI based on that
     };
 
-    // HOOK useReducer()
+    // HOOK FUNCTION useReducer()
     // sends actions to the switch statement
     // dispatch is a FUNCTION ("envoyer") objects 
     // An alternative to useState.

@@ -21,15 +21,15 @@ export default (state, action) => {
 
         case UPDATE_CONTACT: //#3 reducer catches the payload 
             return {
-                ...state,
+                ...state,//current state. Immutable
                 contacts: state.contacts.map(contact => // and maps through all of the contacts...
                     contact.id === action.payload.id ? action.payload : contact)// looks for the payload id. 
-                    //If matches, will send the new updated info (action.payload and replace it.
+                    //If matches, will send the new updated info (action.payload) and replace it, else original contact
             };
 
         case DELETE_CONTACT:
             return {
-                ...state,
+                ...state,//current state. Immutable
                 //return all contacts that are not current id
                 //filter out the specific contact
                 contacts: state.contacts.filter(contact => contact.id !== action.payload)
@@ -37,14 +37,14 @@ export default (state, action) => {
 
         case SET_CURRENT:
             return {
-                ...state,
+                ...state,//current state. Immutable
                 current: action.payload
             };
 
         case CLEAR_CURRENT:
             return {
-                ...state,
-                current: null
+                ...state,//current state. Immutable
+                current: null //
             };
 
         default:
