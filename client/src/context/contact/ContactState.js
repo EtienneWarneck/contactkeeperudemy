@@ -50,7 +50,6 @@ const ContactState = props => {
     // Returns the current state paired with a dispatch method. 
     const [state, dispatch] = useReducer(contactReducer, initialState);
 
-    
 
         //ACTIONS 
             //Add LEFT side , BUTTON: Add Contact
