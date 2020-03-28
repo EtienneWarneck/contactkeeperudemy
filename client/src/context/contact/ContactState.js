@@ -12,7 +12,7 @@ import {
     CLEAR_FILTER
 } from '../types';
 
-console.log(uuidv4('75442486-0878-440c-9db1-a7006c25a39f')); //true 
+// console.log(uuidv4('75442486-0878-440c-9db1-a7006c25a39f')); //true 
 
 const ContactState = props => {
 
@@ -43,17 +43,23 @@ const ContactState = props => {
         current: null //when Edit is clicked we want data to go in this piece of state and we can change UI based on that
     };
 
-    //USE REDUCER HOOK -------------------------------------------------------------------------------------------------
-    const [state, dispatch] = useReducer(contactReducer, initialState); //dispatch ("envoyer") objects to our reducer
+    // HOOK useReducer()
+    // sends actions to the switch statement
+    // dispatch is a FUNCTION ("envoyer") objects 
+    // An alternative to useState.
+    // Returns the current state paired with a dispatch method. 
+    const [state, dispatch] = useReducer(contactReducer, initialState);
+
+    
 
         //ACTIONS 
-            //Add LEFT, BUTTON: Add Contact
-    const addContact = contact => {
+            //Add LEFT side , BUTTON: Add Contact
+    const addContact = contact => { //
         contact.id = uuidv4(); //RandomID will be removed when we use MongoDB
         dispatch({ type: ADD_CONTACT, payload: contact }); //2 values sent to reducer: perform 1 action, sent 1 data
     };
 
-         // //Delete RIGHT , BUTTON: Delete
+         // //Delete RIGHT side , BUTTON: Delete
     const deleteContact = id => {
         dispatch({ type: DELETE_CONTACT, payload: id }); // 2values sent to reducer
     };
@@ -70,8 +76,8 @@ const ContactState = props => {
 
 
     //Update Contact
- const updateContact = contact => { 
-        dispatch({ type: UPDATE_CONTACT, payload: contact }); //#2 dispatch to the reducer 
+ const updateContact = contact => {  //#2. Once submitted, it's being called here. The state (contact) is passed in.
+        dispatch({ type: UPDATE_CONTACT, payload: contact }); //Then it's going to dispatch the object to the reducer #3
     };
 
 
@@ -80,8 +86,10 @@ const ContactState = props => {
 
     //Clear Filter
 
-    return ( //wrap entire app with this context
-        <ContactContext.Provider value={
+    return ( 
+        //wrap entire app with this context OBJECT
+        <ContactContext.Provider 
+        value = {
             {
                 contacts: state.contacts,
                 current: state.current,
@@ -93,6 +101,8 @@ const ContactState = props => {
             }}
         >
             {console.log("ContactState PAGE, state.contacts", state.contacts)}
+            {/*  */}
+
             {props.children}
         </ContactContext.Provider>
     )

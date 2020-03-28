@@ -19,12 +19,12 @@ export default (state, action) => {
                 contacts: [...state.contacts, action.payload] //spread to copy what's there, action.payload = DATA
             };
 
-        case UPDATE_CONTACT:
+        case UPDATE_CONTACT: //#3 reducer catches the payload 
             return {
                 ...state,
-                contacts: state.contacts.map(contact => 
-                    //#4 map through all contacts and look for the payload id. If matches, will send the new updated info (action.payload), else 
-                    contact.id === action.payload.id ? action.payload : contact)
+                contacts: state.contacts.map(contact => // and maps through all of the contacts...
+                    contact.id === action.payload.id ? action.payload : contact)// looks for the payload id. 
+                    //If matches, will send the new updated info (action.payload and replace it.
             };
 
         case DELETE_CONTACT:

@@ -9,11 +9,11 @@ const ContactForm = () => {
     //BASIC HOOK - useState() - most important hook. FORMAT -> const [state, setState] = useState(intialValue)
     //Used to add functionnality to functional component
     //Returns 2 elements: current state (then updated state) and a FUNCTION that allows us to update the state
-    //to re-render the component. The function doesn not merge the content, it replaces it
+    //to re-render the component. The function does not merge the content, it replaces it
     //Destructuring the array and name it whatever we want.
     //useState can be used as many times as we want. 
     //Multiple setState slices
-    const [contact, setContact] = useState({ //contact is the CHANGING STATE OF THE FORM
+    const [contact, setContact] = useState({ //contact is now the CHANGING STATE OF THE FORM. setContact is 
         name: '',
         email: '',
         phone: '',
@@ -22,10 +22,12 @@ const ContactForm = () => {
 
     // const [otherState, setOtherState] = useState('some other value')
 
+    //destructuring to unpack values into distinct variables.
     const { addContact, updateContact, clearCurrent, current } = contactContext;
 
-    // 
+    //
     //useEffect accepts a function that will run after and for every render cycle.
+
     useEffect(() => {
         if (current !== null) {
             setContact(current) //set LEFT form with contact
@@ -48,16 +50,10 @@ const ContactForm = () => {
     const submitForm = e => {
         e.preventDefault();
         if (current === null) {
-            addContact(contact);//Add Contact from Edit button
+            addContact(contact); // Add Contact from Edit button
         } else {
-            updateContact(contact); //Whatever is in the Form  #1
+            updateContact(contact); // #1 Whatever changes in the Form is SUBMITTED here. Once submitted, it's called in #2
         };
-        // setContact({
-        //     name: '',
-        //     email: '',
-        //     phone: '',
-        //     type: 'personal'
-        // });
         clearAll();
     };
 
@@ -113,7 +109,7 @@ const ContactForm = () => {
                 <input
                     type="submit"
                     // value="Add Contact"
-                    value={current ? 'Update Contact' : 'Add Contact'}
+                    value= {current ? 'Update Contact' : 'Add Contact'}
                     className="btn btn-primary btn-block"
                 />
 
