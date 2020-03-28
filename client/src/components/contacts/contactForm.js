@@ -16,12 +16,12 @@ const ContactForm = () => {
     // ALWAYS returns theses 2 elements:
     // -- current state snapshot (updated state that survives re-renders of the component) 
     // of the object, array, boolean...Can be initialized with any object (state in class-based component is always an object!)
-    // -- and a FUNCTION that allows us to update the state
-    //to re-render the component. The function does not merge the content, it replaces it
-    //Destructuring the array and name it whatever we want.
+    // -- and a FUNCTION that allows us to update the state to re-render the component.
+    // The function does not merge the content, it replaces it
     //useState can be used as many times as we want. 
-    //Multiple setState slices
+    //Multiple setState slices //React doesn't merge autmoatically old and new data = more flexibility.
     //Independent from other places. So we can simply share functionalities between components.
+    
     const [contact, setContact] = useState({ //contact is the CHANGING STATE OF THE FORM. setContact is 
         name: '',
         email: '',
@@ -79,8 +79,9 @@ const ContactForm = () => {
                 placeholder="name"
                 name="name"
                 value={name} //contact.name
-                onChange={onChange} //setContact function is called via onChange
-                // same as onChange={event => setContact({event.target.value})
+                onChange={onChange} //The setContact function (from UseState()) is called via onChange function. 
+            //  onChange={event => setContact({name: event.target.value})} 
+             //will print the Warning A component is changing a controlled input of type email to be uncontrolled.
             />
             <input
                 type="email"
