@@ -6,10 +6,10 @@ const Home = () => {
     return (
         <div className="grid-2">
             <div>
-               <ContactForm/>
+               <ContactForm/> {/* input */}
             </div>
             <div>
-                <Contacts/>
+                <Contacts/> {/* output */}
             </div>
         </div>
     )

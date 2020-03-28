@@ -6,40 +6,43 @@ const ContactForm = () => {
 
     const contactContext = useContext(ContactContext);
 
-     //destructuring to unpack values into distinct variables:
-     const { addContact, updateContact, clearCurrent, current } = contactContext;
+    //destructuring to unpack values into distinct variables:
+    const { addContact, updateContact, clearCurrent, current } = contactContext;
     //--------------------------
-
 
     //BASIC HOOK - useState() - most important hook. FORMAT -> const [state, setState] = useState(intialValue)
     //Used to add functionnality to functional component.
     // ALWAYS returns theses 2 elements:
-    // -- current state snapshot (updated state that survives re-renders of the component) 
+    // 1. current state snapshot (updated state that survives re-renders of the component) 
     // of the object, array, boolean...Can be initialized with any object (state in class-based component is always an object!)
-    // -- and a FUNCTION that allows us to update the state to re-render the component.
-    // The function does not merge the content, it replaces it
+    // 2. and a FUNCTION that allows us to update the state to re-render the component.
+    // The function does not merge the content, it replaces it.
     //useState can be used as many times as we want. 
-    //Multiple setState slices //React doesn't merge autmoatically old and new data = more flexibility.
+    // Multiple useState() are possible and will survive other useState() changes. That is how it is intented to be used.
+    //Only use on useState() with objects when multiple things need to be chnaged together.
+    // React doesn't merge automatically old and new data = more flexibility (state is merged in class-based)
     //Independent from other places. So we can simply share functionalities between components.
-    
-    const [contact, setContact] = useState({ //contact is the CHANGING STATE OF THE FORM. setContact is 
+    //Destructuring: contact is the CHANGING STATE OF THE FORM, the data. setUserContact to update the data.
+    //ALWAYS used on root level, NEVER in a nested function or if statement,...
+
+    const [userContact, setUserContact] = useState({
         name: '',
         email: '',
         phone: '',
         type: 'personal'
     });
 
-    // const [otherState, setOtherState] = useState('some other value')
+    //Pull the values out of userContact.
+    const { name, email, phone, type } = userContact;
 
-   
-    //
+
     //useEffect accepts a function that will run after and for every render cycle.
 
     useEffect(() => {
         if (current !== null) {
-            setContact(current) //set LEFT form with contact
+            setUserContact(current) //set LEFT form with current
         } else {
-            setContact({  //default state (nothing)
+            setUserContact({  //default state (nothing)
                 name: '',
                 email: '',
                 phone: '',
@@ -48,23 +51,20 @@ const ContactForm = () => {
         }
     }, [contactContext, current]); //adding dependencies. useEffect will only be called if those change. ( similar to componentDidMount() )
 
-
-    //Pull the values out of contact.
-    const { name, email, phone, type } = contact;
-
-    const onChange = e => setContact({ ...contact, [e.target.name]: e.target.value })
+    //a function to use on every input's change 
+    const onChange = e => setUserContact({ ...userContact, [e.target.name]: e.target.value })
 
     const submitForm = e => {
         e.preventDefault();
         if (current === null) {
-            addContact(contact); // Add Contact from Edit button
+            addContact(userContact); // Add Contact from Edit button
         } else {
-            updateContact(contact); // #1 Whatever changes in the Form is SUBMITTED here. Once submitted, it's called in #2
+            updateContact(userContact); // #1 Whatever changes in the Form is SUBMITTED here. Once submitted, it's called in #2
         };
         clearAll();
     };
 
-    const clearAll = () => {
+    const clearAll = () => { 
         clearCurrent();
     }
 
@@ -79,9 +79,11 @@ const ContactForm = () => {
                 placeholder="name"
                 name="name"
                 value={name} //contact.name
-                onChange={onChange} //The setContact function (from UseState()) is called via onChange function. 
-            //  onChange={event => setContact({name: event.target.value})} 
-             //will print the Warning A component is changing a controlled input of type email to be uncontrolled.
+                onChange={onChange} //The setUserContact function from UseState() is called via onChange function. 
+            //onChange={event => setUserContact({name: event.target.value})} 
+            //will print the Warning A component is changing a controlled input of type email to be uncontrolled.
+            //if one useState was created just for the name such as `const [enteredName, setEnteredName] = useState('')`
+            //it would look like : `onChange={event => {setEnteredName(event.target.Name)}}`
             />
             <input
                 type="email"
@@ -118,7 +120,7 @@ const ContactForm = () => {
                 <input
                     type="submit"
                     // value="Add Contact"
-                    value= {current ? 'Update Contact' : 'Add Contact'}
+                    value={current ? 'Update Contact' : 'Add Contact'}
                     className="btn btn-primary btn-block"
                 />
 

@@ -15,8 +15,9 @@ export default (state, action) => {
 
         case ADD_CONTACT:
             return {
-                ...state, //current state. Immutable
-                contacts: [...state.contacts, action.payload] //spread to copy what's there, action.payload = DATA
+                ...state, //return the current state, Immutable
+                contacts: [...state.contacts, action.payload] //return a new array
+                // new array: with spread operator to copy what was there before + action.payload = DATA
             };
 
         case UPDATE_CONTACT: //#3 reducer catches the payload 

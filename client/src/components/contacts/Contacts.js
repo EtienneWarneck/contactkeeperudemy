@@ -17,7 +17,7 @@ const Contacts = () => {
     return (
         <div>
             <Fragment>
-                {contacts.map(contact => (
+                {contacts.map( contact => (
                     //map through array and create new array to display <Contacts/> component in Homepage
                     <ContactItem key={contact.id} contactPassed={contact} />
                 ))}

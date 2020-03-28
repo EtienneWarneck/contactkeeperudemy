@@ -43,15 +43,14 @@ const ContactState = props => {
         current: null //when Edit is clicked we want data to go in this piece of state and we can change UI based on that
     };
 
-    // HOOK FUNCTION useReducer()
+    // HOOK useReducer()
     // sends actions to the switch statement
     // dispatch is a FUNCTION ("envoyer") objects 
     // An alternative to useState.
     // Returns the current state paired with a dispatch method. 
     const [state, dispatch] = useReducer(contactReducer, initialState);
-
-
-        //ACTIONS 
+       
+    //ACTIONS 
             //Add LEFT side , BUTTON: Add Contact
     const addContact = contact => { //
         contact.id = uuidv4(); //RandomID will be removed when we use MongoDB
@@ -75,7 +74,7 @@ const ContactState = props => {
 
 
     //Update Contact
- const updateContact = contact => {  //#2. Once submitted, it's being called here. The state (contact) is passed in.
+ const updateContact = contact => {  //#2. Once submitted, it's being called here. The state is passed in the parameter (contact) 
         dispatch({ type: UPDATE_CONTACT, payload: contact }); //Then it's going to dispatch the object to the reducer #3
     };
 
