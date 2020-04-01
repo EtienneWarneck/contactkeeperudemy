@@ -52,7 +52,7 @@ export default (state, action) => {
             return {
                 ...state,
                 filtered: state.contacts.filter(contact => {
-                    const regex = new RegExp(`${action.payload}`, `gi`)
+                    const regex = new RegExp(`${action.payload}`, `gi`) //text in payload gi : a case insensitive search to match lowercase or uppercase
                     return contact.name.match(regex) || contact.email.match(regex);
                 })
             };

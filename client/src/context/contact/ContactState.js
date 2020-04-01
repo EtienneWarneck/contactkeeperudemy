@@ -27,7 +27,7 @@ const ContactState = props => {
             },
             {
                 id: 2,
-                name: "Katie Forall",
+                name: "Katie Fojall",
                 email: "k@gmail.com",
                 phone: "222-222-2222",
                 type: "personal"
@@ -41,7 +41,7 @@ const ContactState = props => {
             }
         ],
         current: null, //when Edit is clicked we want data to go in this piece of state and we can change UI based on that
-        filtered: null //array of matching contacts that match input
+        filtered: null //Array of filtered contacts that match an input
     };
 
     // HOOK useReducer()
@@ -50,20 +50,20 @@ const ContactState = props => {
     // An alternative to useState.
     // Returns the current state paired with a dispatch method. 
     const [state, dispatch] = useReducer(contactReducer, initialState);
-       
+
     //ACTIONS 
-            //Add LEFT side , BUTTON: Add Contact
+    //Add LEFT side , BUTTON: Add Contact
     const addContact = contact => { //
         contact.id = uuidv4(); //RandomID will be removed when we use MongoDB
         dispatch({ type: ADD_CONTACT, payload: contact }); //2 values sent to reducer: perform 1 action, sent 1 data
     };
 
-         // //Delete RIGHT side , BUTTON: Delete
+    // //Delete RIGHT side , BUTTON: Delete
     const deleteContact = id => {
         dispatch({ type: DELETE_CONTACT, payload: id }); // 2values sent to reducer
     };
 
-        //Set Current RIGHT, BUTTON: Edit 
+    //Set Current RIGHT, BUTTON: Edit 
     const setCurrent = contact => {
         dispatch({ type: SET_CURRENT, payload: contact }); //dispatch to reducer
     };
@@ -73,47 +73,49 @@ const ContactState = props => {
         dispatch({ type: CLEAR_CURRENT }); // 2values sent to reducer
     };
 
-
     //Update Contact
- const updateContact = contact => {  //#2. Once submitted, it's being called here. The state is passed in the parameter (contact) 
+    const updateContact = contact => {  //#2. Once submitted, it's being called here. The state is passed in the parameter (contact) 
         dispatch({ type: UPDATE_CONTACT, payload: contact }); //Then it's going to dispatch the object to the reducer #3
     };
 
 
-    //Filter Contacts
-
-    const filterContacts = text => {  
-    dispatch({ type: FILTER_CONTACTS, payload: text }); 
-};
-
+    //FILTER function
+    const filterContacts = text => {
+        dispatch({ type: FILTER_CONTACTS, payload: text });
+    };
     //Clear Filter
     const clearFilter = () => {
-        dispatch({ type: CLEAR_FILTER }); // 2values sent to reducer
+        dispatch({ type: CLEAR_FILTER }); // resetting to null
     };
 
 
 
-    return ( 
+    return (
         //wrap entire app with the ContactContext OBJECT
-        <ContactContext.Provider 
-        value = {
-            {
-                contacts: state.contacts,
-                current: state.current,
-                filtered: state.filtered,
-                addContact,
-                deleteContact,
-                setCurrent, //to Edit existing contact
-                clearCurrent,
-                updateContact,
-                filterContacts,
-                clearFilter
-            }}
+        <ContactContext.Provider
+            value={
+                {
+                    contacts: state.contacts,
+                    current: state.current,
+                    filtered: state.filtered,
+
+                    addContact,
+                    deleteContact,
+                    setCurrent, //to Edit existing contact
+                    clearCurrent,
+                    updateContact,
+                    filterContacts,
+                    clearFilter
+                }}
         >
             {console.log("ContactState PAGE, state.contacts", state.contacts)}
-            {/*  */}
+            {console.log("ContactState PAGE, state.current", state.current)}
+            {console.log("ContactState PAGE, state.filtered", state.filtered)}
 
             {props.children}
+
+            {console.log("ContactState PAGE, props.children:", props.children)}
+
         </ContactContext.Provider>
     )
 }

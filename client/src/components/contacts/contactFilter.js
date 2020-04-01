@@ -4,19 +4,21 @@ import ContactContext from '../../context/contact/contactContext';
 const ContactFilter = () => {
 
     const contactContext = useContext(ContactContext);
-    const text = useRef(''); //initializing ref
+
+    const textForRef = useRef(''); //HOOK initializing function Ref that references an actual DOM object
 
     // const {filterContacts, clearFilter, filtered } = contactContext;
     
+    //If filter is empty, we want the input to be empty
     useEffect(() => {
         if (contactContext.filtered === null) {
-        text.current.value ='';
+        textForRef.current.value ='';
         }
     })
 
     const onChange = e => {
-       if (text.current.value !== '') { //what's in input
-        contactContext.filterContacts(e.target.value); //passing actual text 
+       if (textForRef.current.value !== '') { //what's in input
+        contactContext.filterContacts(e.target.value); //passing actual value of the input
        }
        else {
            contactContext.clearFilter();
@@ -25,7 +27,7 @@ const ContactFilter = () => {
 
     return (
         <form>
-            <input ref={text} type="text" placeholder="Filter Contacts..." onChange={onChange}/>
+            <input ref={textForRef} type="text" placeholder="Filter Contacts..." onChange={onChange}/> 
         </form>
     )
 }
