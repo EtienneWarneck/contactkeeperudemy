@@ -1,7 +1,6 @@
 import React, { useReducer } from 'react'; //access state and dispatch
-
 import AuthContext from './authContext';
-import AuthReducer from "./authReducer";
+import authReducer from "./authReducer";
 import {
     REGISTER_SUCCESS,
     REGISTER_FAIL,
@@ -55,16 +54,15 @@ const AuthState = props => {
                     loading: state.loading,
                     user: state.user,
                     error: state.error
+                }}>
 
-                }}
-        >
-            {console.log("ContactState PAGE, state.contacts", state.contacts)}
+            {/* {console.log("ContactState PAGE, state.contacts", state.contacts)}
             {console.log("ContactState PAGE, state.current", state.current)}
-            {console.log("ContactState PAGE, state.filtered", state.filtered)}
+            {console.log("ContactState PAGE, state.filtered", state.filtered)} */}
 
             {props.children}
 
-            {console.log("ContactState PAGE, props.children:", props.children)}
+            {/* {console.log("ContactState PAGE, props.children:", props.children)} */}
 
         </AuthContext.Provider>
     )
