@@ -13,17 +13,17 @@ const ContactForm = () => {
     //BASIC HOOK - useState() - most important hook. FORMAT -> const [state, setState] = useState(intialValue)
     //Used to add functionnality to functional component.
     // ALWAYS returns theses 2 elements:
-    // 1. current state snapshot (updated state that survives re-renders of the component) 
-    // of the object, array, boolean...Can be initialized with any object (state in class-based component is always an object!)
-    // 2. and a FUNCTION that allows us to update the state to re-render the component.
+    // 1. the current state snapshot (updated state that survives re-renders of the component) of the object, array, boolean...
+    //Can be initialized with any object (vs state in class-based component is always an object)
+    // 2. a FUNCTION that allows us to update the state to re-render the component.
     // The function does not merge the content, it replaces it.
-    //useState can be used as many times as we want. 
+    // useState can be used as many times as we want. 
     // Multiple useState() are possible and will survive other useState() changes. That is how it is intented to be used.
-    //Only use on useState() with objects when multiple things need to be chnaged together.
+    // Only use on useState() with objects when multiple things need to be changed together.
     // React doesn't merge automatically old and new data = more flexibility (state is merged in class-based)
-    //Independent from other places. So we can simply share functionalities between components.
-    //Destructuring: contact is the CHANGING STATE OF THE FORM, the data. setUserContact to update the data.
-    //ALWAYS used on root level, NEVER in a nested function or if statement,...
+    // Independent from other places. So we can simply share functionalities between components.
+    // Destructuring: contact is the CHANGING STATE OF THE FORM, the data. setUserContact to update the data.
+    // ALWAYS used on root level, NEVER in a nested function or if statement,...
 
     const [userContact, setUserContact] = useState({
         name: '',
@@ -35,9 +35,20 @@ const ContactForm = () => {
     //Pull the values out of userContact.
     const { name, email, phone, type } = userContact;
 
+    //a function to use on every input's change 
+    const onChange = e => setUserContact({ ...userContact, [e.target.name]: e.target.value })
 
-    //useEffect accepts a function that will run after and for every render cycle.
+    const submitForm = e => {
+        e.preventDefault();
+        if (current === null) { //if nothing has changed, (if the Edit button wasn't pressed)
+            addContact(userContact); // Add the empty values from useState's current state
+        } else {
+            updateContact(userContact); // #1 Whatever changes in the Form is SUBMITTED here. Once submitted, it's called in #2
+        };
+        clearAll();
+    };
 
+    //useEffect accepts a function that will run AFTER and for every render cycle.
     useEffect(() => {
         if (current !== null) {
             setUserContact(current) //set LEFT form with current
@@ -46,25 +57,13 @@ const ContactForm = () => {
                 name: '',
                 email: '',
                 phone: '',
-                type: 'personal'
+                type: 'professional'
             });
         }
-    }, [contactContext, current]); //adding dependencies. useEffect will only be called if those change. ( similar to componentDidMount() )
+    },[contactContext, current]); //adding dependencies. useEffect will only be called if those change. ( similar to componentDidMount() )
 
-    //a function to use on every input's change 
-    const onChange = e => setUserContact({ ...userContact, [e.target.name]: e.target.value })
 
-    const submitForm = e => {
-        e.preventDefault();
-        if (current === null) {
-            addContact(userContact); // Add Contact from Edit button
-        } else {
-            updateContact(userContact); // #1 Whatever changes in the Form is SUBMITTED here. Once submitted, it's called in #2
-        };
-        clearAll();
-    };
-
-    const clearAll = () => { 
+    const clearAll = () => {
         clearCurrent();
     }
 

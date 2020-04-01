@@ -25,7 +25,7 @@ export default (state, action) => {
                 ...state,//current state. Immutable
                 contacts: state.contacts.map(contact => // and maps through all of the contacts...
                     contact.id === action.payload.id ? action.payload : contact)// looks for the payload id. 
-                    //If matches, will send the new updated info (action.payload) and replace it, else original contact
+                //If matches, will send the new updated info (action.payload) and replace it, else original contact
             };
 
         case DELETE_CONTACT:
@@ -46,6 +46,21 @@ export default (state, action) => {
             return {
                 ...state,//current state. Immutable
                 current: null //
+            };
+
+        case FILTER_CONTACTS:
+            return {
+                ...state,
+                filtered: state.contacts.filter(contact => {
+                    const regex = new RegExp(`${action.payload}`, `gi`)
+                    return contact.name.match(regex) || contact.email.match(regex);
+                })
+            };
+            
+        case CLEAR_FILTER:
+            return {
+                ...state,
+                filtered: null
             };
 
         default:

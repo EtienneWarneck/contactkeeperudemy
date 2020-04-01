@@ -40,7 +40,8 @@ const ContactState = props => {
                 type: "professional"
             }
         ],
-        current: null //when Edit is clicked we want data to go in this piece of state and we can change UI based on that
+        current: null, //when Edit is clicked we want data to go in this piece of state and we can change UI based on that
+        filtered: null //array of matching contacts that match input
     };
 
     // HOOK useReducer()
@@ -79,23 +80,34 @@ const ContactState = props => {
     };
 
 
-    //Filter Contacs
+    //Filter Contacts
 
+    const filterContacts = text => {  
+    dispatch({ type: FILTER_CONTACTS, payload: text }); 
+};
 
     //Clear Filter
+    const clearFilter = () => {
+        dispatch({ type: CLEAR_FILTER }); // 2values sent to reducer
+    };
+
+
 
     return ( 
-        //wrap entire app with this context OBJECT
+        //wrap entire app with the ContactContext OBJECT
         <ContactContext.Provider 
         value = {
             {
                 contacts: state.contacts,
                 current: state.current,
+                filtered: state.filtered,
                 addContact,
                 deleteContact,
                 setCurrent, //to Edit existing contact
                 clearCurrent,
-                updateContact
+                updateContact,
+                filterContacts,
+                clearFilter
             }}
         >
             {console.log("ContactState PAGE, state.contacts", state.contacts)}

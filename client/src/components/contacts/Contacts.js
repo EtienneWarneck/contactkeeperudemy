@@ -11,16 +11,26 @@ const Contacts = () => {
     //now we can access any method associated with that const
 
     //Accessing contacts array, destructuring
-    const { contacts } = contactContext;
+    // const { contacts, filtered } = contactContext;
 
+    if (contactContext.length === 0) {
+        return <h4>Please add contact</h4>
+    }
 
     return (
         <div>
             <Fragment>
-                {contacts.map( contact => (
-                    //map through array and create new array to display <Contacts/> component in Homepage
-                    <ContactItem key={contact.id} contactPassed={contact} />
-                ))}
+
+                {contactContext.filtered !== null ?
+
+                    contactContext.filtered.map(contact => (
+                        <ContactItem key={contact.id} contactPassed={contact} />))
+                    :
+
+                    contactContext.contacts.map(contact => (
+                        <ContactItem key={contact.id} contactPassed={contact} />))
+                }
+
             </Fragment>
         </div>
     )
