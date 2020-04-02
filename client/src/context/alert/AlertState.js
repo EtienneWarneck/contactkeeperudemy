@@ -7,21 +7,20 @@ import { SET_ALERT, REMOVE_ALERT } from '../types';
 
 const AlertState = props => {
 
-    const initialState = []
+    const initialState = [] //initially current state is an empty array for alerts
 
     const [state, dispatch] = useReducer(alertReducer, initialState);
 
     //ACTIONS 
-
-    //Set Alert
+    //Set an alert
     const setAlert = (msg, type, timeout = 5000) => {
         const id = uuidv4();
         dispatch({ //send to reducer
             type: SET_ALERT,
-            payload: { msg, type, id }
+            payloadAlert: { msg, type, id }
         });
-        //make alert disappear after certain time
-        setTimeout(() => dispatch({ type: REMOVE_ALERT, payload: id }), timeout)
+        //make alert disappear after certain time:
+        setTimeout(() => dispatch({ type: REMOVE_ALERT, payloadAlert: id }), timeout)
     }
 
     return (

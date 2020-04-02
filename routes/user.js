@@ -13,7 +13,7 @@ const User = require('../models/User');
 
 // '/' already represents '/api/user'
 
-//route POST endpoint: api/users //REGISTRATION COMPLETE
+//route POST endpoint: api/users //REGISTRATION COMPLETED //axios called in AuthState
 router.post('/', [
     check('name', 'Please enter name').not().isEmpty(),
     check('email', 'Please enter valid email').isEmail(),
@@ -34,10 +34,9 @@ router.post('/', [
         const { name, email, password } = req.body;
 
         try { //represent block of code to be tested for errors while it's been executed.
-            //find user based on field.
-            let user = await User.findOne({ email: email });
+            let user = await User.findOne({ email: email }); //find user based on DB field
 
-            if (user) {
+            if (user) { //if user already registered, will pull an error //will call the catch in AuthState.js
                 return res.status(400).json({ msg: 'User already exists' }); //400 bad request
             }
             //using user created above to make a new instance to save to DB
@@ -57,11 +56,11 @@ router.post('/', [
 
             user.password = await bcrypt.hash(password, salt);
 
-            await user.save(); //save to mongoDB Atlas
+            await user.save(); //save user to DB
 
             //object we want to send in the token to access all the contacts
-            //the payload is the part of transmitted data that is the actual intended message.
-            const payload = {
+            //the payload is the part of transmitted data that is the actual intended message
+            const payload = { //create the payload
                 user: {
                     id: user.id
                 }
@@ -70,12 +69,13 @@ router.post('/', [
             // res.send('User saved in Database!!!') //test Postman
 
             //add payload and secret 
-            jwt.sign(payload, config.get('jwtSecret'), {
+            jwt.sign(payload, config.get('jwtSecret'), { //sign the token
                 expiresIn: 360000 //(3600 is an hour )
             },
                 (err, token) => {
                     if (err) throw err;
-                    res.json({ token }); //token includes user's id
+                    res.json({ token }); // it will respond with the token
+                    //token includes user's id
                 }
 
             )

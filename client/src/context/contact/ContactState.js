@@ -110,9 +110,9 @@ const ContactState = props => {
                     clearFilter
                 }}
         >
-            {console.log("ContactState PAGE, state.contacts", state.contacts)}
-            {console.log("ContactState PAGE, state.current", state.current)}
-            {console.log("ContactState PAGE, state.filtered", state.filtered)}
+            {console.log("ContactState.js, state.contacts", state.contacts)}
+            {console.log("ContactState.js, state.current", state.current)}
+            {console.log("ContactState.js, state.filtered", state.filtered)}
 
             {props.children}
 

@@ -1,5 +1,8 @@
 import React, { useReducer } from 'react'; //access state and dispatch
 import AuthContext from './authContext';
+
+import axios from 'axios';
+
 import authReducer from "./authReducer";
 import {
     REGISTER_SUCCESS,
@@ -11,6 +14,8 @@ import {
     LOGOUT,
     CLEAR_ERR0RS,
 } from '../types';
+import { ResponsiveEmbed } from 'react-bootstrap';
+import { compare } from 'bcryptjs';
 
 // console.log(uuidv4('75442486-0878-440c-9db1-a7006c25a39f')); //true 
 
@@ -37,16 +42,42 @@ const AuthState = props => {
     //ACTIONS 
 
     //Load User (hit auth endpoint to check what user is logged in and get user data)
-
-    //Register User (Sign user up and get token back)
-
-    //Login User (Log in and get token)
-
-    //Logout (destroy token)
-
-    //Clear Errors
+    const loadUser = () => console.log('loading')
 
 
+    //REGISTER USER (Sign user up and get token back)
+    const register = async formData => {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+
+        try {
+            const res = await axios.post('api/users', formData, config);
+            //proxy so no need to write localhost5000 
+            dispatch({
+                type: REGISTER_SUCCESS,
+                payload: res.data //hitting api user.js res.data will be the token
+
+            });
+            console.log(res.data)
+        } catch (err) { //catch is called if error ( if user already exists)
+            dispatch({
+                type: REGISTER_FAIL,
+                payload: err.response.data.msg //calls json msg from user.js 400
+            });
+        }
+    }
+
+    //LOGIN (Log in and get token)
+    const login = () => console.log('login')
+
+    //LOGOUT (destroy token)
+    const logout = () => console.log('logout')
+
+    //CLEAR ERRORS
+    const clearErrors = () => console.log('clearErrors')
 
     return (
         //wrap entire app with the ContactContext OBJECT
@@ -57,7 +88,13 @@ const AuthState = props => {
                     isAuthenticated: state.isAuthenticated,
                     loading: state.loading,
                     user: state.user,
-                    error: state.error
+                    error: state.error,
+
+                    register,
+                    loadUser,
+                    login,
+                    logout,
+                    clearErrors
                 }}>
 
             {/* {console.log("ContactState PAGE, state.contacts", state.contacts)}
