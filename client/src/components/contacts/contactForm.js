@@ -25,7 +25,7 @@ const ContactForm = () => {
     // Destructuring: contact is the CHANGING STATE OF THE FORM, the data. setUserContact to update the data.
     // ALWAYS used on root level, NEVER in a nested function or if statement,...
 
-    const [userContact, setUserContact] = useState({
+    const [userContact, setUserContact] = useState({ //We declare a state variable called userContact and set it to :
         name: '',
         email: '',
         phone: '',
@@ -35,7 +35,7 @@ const ContactForm = () => {
     //Pull the values out of userContact.
     const { name, email, phone, type } = userContact;
 
-    //a function to use on every input's change 
+    //a function to use on every input's change. 
     const onChange = e => setUserContact({ ...userContact, [e.target.name]: e.target.value })
 
     const submitForm = e => {

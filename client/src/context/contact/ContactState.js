@@ -49,6 +49,8 @@ const ContactState = props => {
     // dispatch is a FUNCTION ("envoyer") objects 
     // An alternative to useState.
     // Returns the current state paired with a dispatch method. 
+    // There are two different ways to initialize useReducer state.
+    // The simplest way is to pass the initial state as a second argument:
     const [state, dispatch] = useReducer(contactReducer, initialState);
 
     //ACTIONS 
@@ -114,7 +116,7 @@ const ContactState = props => {
 
             {props.children}
 
-            {console.log("ContactState PAGE, props.children:", props.children)}
+            {console.log("ContactState, PROPS.CHILDREN:", props.children)}
 
         </ContactContext.Provider>
     )

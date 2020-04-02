@@ -23,10 +23,14 @@ const AuthState = props => {
         error: null
     };
 
-    // HOOK useReducer()
+    // HOOK useReducer() 
+    // Preferable to useState when:
+    // 1. you have complex state logic that involves multiple sub-values. 
+    // 2. when the next state depends on the previous one.
+    // It is a function that takes some input and returns some output
+    // Passes 
     // sends actions to the switch statement
     // dispatch is a FUNCTION ("envoyer") objects 
-    // An alternative to useState.
     // Returns the current state paired with a dispatch method. 
     const [state, dispatch] = useReducer(authReducer, initialState);
 
