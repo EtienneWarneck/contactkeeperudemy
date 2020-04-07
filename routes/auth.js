@@ -15,10 +15,13 @@ const User = require('../models/User');
 
 //router.METHOD() provides the routing functionnality
 
+
+
 //route GET endpoint: api/auth ---------------------------------------------
 //Get logged in user //Need token to get access to this route.
-//private //protected  //BY ADDING AUTH IT RUNS THE MIDDLEWARE *
-
+//private 
+//protected  
+//BY ADDING AUTH IT RUNS THE MIDDLEWARE *
 router.get('/', auth, async (req, res) => {
     //route POST auth user and get token, public
     // res.send('Get logged in user');
@@ -37,11 +40,10 @@ router.get('/', auth, async (req, res) => {
 
 
 // AUTHENTICATION user
-//route POST endpoint: api/auth ---------------------------------------------
-//Auth user and get token
-//public
-//requires middleware to compare token
-
+// route POST endpoint: api/auth ---------------------------------------------
+// Auth user and get token
+// public
+// requires middleware to compare token
 router.post('/',
     [
         check('email').isEmail(), //validator

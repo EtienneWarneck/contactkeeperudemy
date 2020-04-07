@@ -4,6 +4,7 @@ import AuthContext from './authContext';
 import axios from 'axios';
 
 import authReducer from "./authReducer";
+import setAuthToken from '../../utils/setAuthToken'
 import {
     REGISTER_SUCCESS,
     REGISTER_FAIL,
@@ -43,7 +44,24 @@ const AuthState = props => {
     //ACTIONS: 
 
     //Load User (hit auth endpoint to check what user is logged in and get user data)
-    const loadUser = () => console.log('loading')
+    const loadUser = async() => { //needs to be called in app.js to load every single time our main component loads
+        //todo load token into global headers
+
+        if (localStorage.token) {
+            setAuthToken(localStorage.token);
+        }
+        try {
+            const res = await axios.get('/api/auth'); //routes check token, if ok:
+            dispatch({
+                type: USER_LOADED,
+                payload: res.data //actual user data
+            });
+        } catch (err) {
+            dispatch({
+                type: AUTH_ERROR
+            }) //
+        }
+    };
 
 
     // REGISTRATION (Sign user up and get token back and adds user to DB)
@@ -61,7 +79,10 @@ const AuthState = props => {
                 payload: res.data //hitting route api user.js res.data will be the token
 
             });
-            console.log(res.data)
+            // console.log(res.data)
+
+            loadUser();
+
         } catch (err) { //catch is called if error (if user already exists)
             dispatch({
                 type: REGISTER_FAIL,
@@ -77,7 +98,7 @@ const AuthState = props => {
     const logout = () => console.log('logout')
 
     //CLEAR ERRORS
-    const clearErrors = () => dispatch({  type: CLEAR_ERRORS});
+    const clearErrors = () => dispatch({ type: CLEAR_ERRORS });
 
 
     return (
