@@ -58,11 +58,11 @@ const AuthState = props => {
             //proxy so no need to write localhost5000 
             dispatch({
                 type: REGISTER_SUCCESS,
-                payload: res.data //hitting api user.js res.data will be the token
+                payload: res.data //hitting route api user.js res.data will be the token
 
             });
             console.log(res.data)
-        } catch (err) { //catch is called if error ( if user already exists)
+        } catch (err) { //catch is called if error (if user already exists)
             dispatch({
                 type: REGISTER_FAIL,
                 payload: err.response.data.msg //calls json msg from user.js 400
