@@ -37,7 +37,9 @@ router.post('/', [
             let user = await User.findOne({ email: email }); //find user based on DB field
 
             if (user) { //if user already registered, will pull an error //will call the catch in AuthState.js
-                return res.status(400).json({ msg: 'User already exists' }); //400 bad request. if this is return catch will be called in AuthState.jd 61
+
+                //400 bad request, catch will be called in register() in AuthState.js
+                return res.status(400).json({ msg: 'User already exists' }); 
             }
             //using user created above to make a new instance to save to DB
             user = new User({

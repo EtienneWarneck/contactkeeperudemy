@@ -12,10 +12,10 @@ import {
 export default (state, action) => {
     switch (action.type) {
         case REGISTER_SUCCESS:
-            localStorage.setItem('token', action.payload.token);
+            localStorage.setItem('token', action.payload.token); //action.payload is the object
             return {
-                ...state,
-                ...action.payload,
+                ...state, //spread current state
+                ...action.payload, //put the token in state
                 isAutheticated: true,
                 loading: false,
             };
@@ -27,8 +27,13 @@ export default (state, action) => {
                     isAuthenticated: false,
                     loading: false,
                     user: null,
-                    error: action.payload //from AuthState.JS  err.response.data.ms
+                    error: action.payload //from AuthState.JS  err.response.data.msg
                 };
+                case CLEAR_ERRORS:
+                    return {
+                        ...state,
+                        error: null
+                    };
         default:
             return state;
     }

@@ -12,8 +12,9 @@ import {
     LOGIN_SUCCESS,
     LOGIN_FAIL,
     LOGOUT,
-    CLEAR_ERR0RS,
+    CLEAR_ERRORS,
 } from '../types';
+
 import { ResponsiveEmbed } from 'react-bootstrap';
 import { compare } from 'bcryptjs';
 
@@ -39,20 +40,19 @@ const AuthState = props => {
     // Returns the current state paired with a dispatch method. 
     const [state, dispatch] = useReducer(authReducer, initialState);
 
-    //ACTIONS 
+    //ACTIONS: 
 
     //Load User (hit auth endpoint to check what user is logged in and get user data)
     const loadUser = () => console.log('loading')
 
 
-    //REGISTER USER (Sign user up and get token back)
+    // REGISTRATION (Sign user up and get token back and adds user to DB)
     const register = async formData => {
         const config = {
             headers: {
                 'Content-Type': 'application/json'
             }
         }
-
         try {
             const res = await axios.post('api/users', formData, config);
             //proxy so no need to write localhost5000 
@@ -77,7 +77,8 @@ const AuthState = props => {
     const logout = () => console.log('logout')
 
     //CLEAR ERRORS
-    const clearErrors = () => console.log('clearErrors')
+    const clearErrors = () => dispatch({  type: CLEAR_ERRORS});
+
 
     return (
         //wrap entire app with the ContactContext OBJECT
