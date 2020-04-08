@@ -3,13 +3,17 @@ import AlertContext from '../../context/alert/alertContext';
 import AuthContext from '../../context/auth/authContext';
 
 const Login = (props) => {
+
     const alertContext = useContext(AlertContext);
+
     const authContext = useContext(AuthContext);
 
     const { setAlert } = alertContext;
+
     const { login, error, clearErrors, isAuthenticated } = authContext;
 
     useEffect(() => {
+
         if (isAuthenticated) {
             props.history.push('/') //once authenticated REDIRECTED
         }
@@ -19,6 +23,7 @@ const Login = (props) => {
         }
         //eslint-disable-next-line
     }, [error, clearErrors, isAuthenticated, props.history])
+    
 
     const [user, setUser] = useState({
         email: '',

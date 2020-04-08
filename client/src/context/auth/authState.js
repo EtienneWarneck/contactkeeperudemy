@@ -16,8 +16,8 @@ import {
     CLEAR_ERRORS,
 } from '../types';
 
-import { ResponsiveEmbed } from 'react-bootstrap';
-import { compare } from 'bcryptjs';
+// import { ResponsiveEmbed } from 'react-bootstrap';
+// import { compare } from 'bcryptjs';
 
 // console.log(uuidv4('75442486-0878-440c-9db1-a7006c25a39f')); //true 
 
@@ -25,7 +25,7 @@ const AuthState = props => {
     const initialState = {
         token: localStorage.getItem('token'), //access browser localStorage (vanilla JS)
         isAuthenticated: null, //are we logged in or not 
-        loading: true, //
+        loading: true, //spinner 
         user: null,
         error: null
     };

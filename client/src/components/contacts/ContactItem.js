@@ -10,11 +10,11 @@ const ContactItem = ({ contactPassed }) => {   //{contactPassed} is the prop pas
     
     const { deleteContact, setCurrent, clearCurrent } = contactContext; //create an action
     
-    const { id, name, email, phone, type } = contactPassed; //destructuring, EACH CONTACT
+    const { _id, name, email, phone, type } = contactPassed; //destructuring, EACH CONTACT
     // console.log("ContactItem PAGE, contactPassed, CONTACT #", contactPassed.id, contactPassed);
     
     const onDelete = () => {
-        deleteContact(id);
+        deleteContact(_id);
         clearCurrent();
     }
 
