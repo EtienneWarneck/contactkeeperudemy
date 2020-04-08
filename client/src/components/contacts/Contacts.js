@@ -16,8 +16,8 @@ const Contacts = () => {
 
     useEffect(() => {
         getContacts();
-        //es-disable-next-line
-    }, [ ]);
+        // eslint-disable-next-line
+    }, []);
 
     if (contacts !== null && contacts.length === 0 && !loading) { //if no contacts...
         return <h4>Please add contact</h4>
@@ -26,8 +26,8 @@ const Contacts = () => {
     return (
         <Fragment>
             {contacts !== null && !loading ? (<TransitionGroup>
-                {filtered !== null ?
-                    filtered.map(contact => ( //map through FILTERED contacts
+                {filtered !== null
+                    ? filtered.map(contact => ( //map through FILTERED contacts
                         <CSSTransition key={contact._id} timeout={500} classNames="item">
                             <ContactItem contactPassed={contact} />
                         </CSSTransition>
@@ -37,7 +37,7 @@ const Contacts = () => {
                             <ContactItem contactPassed={contact} />
                         </CSSTransition>
                     ))}
-            </TransitionGroup>) : <Spinner/>}
+            </TransitionGroup>) : <Spinner />}
         </Fragment>
     )
 }

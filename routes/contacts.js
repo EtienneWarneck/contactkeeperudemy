@@ -65,7 +65,7 @@ router.put('/:id', auth, async (req, res) => {
     //Buid contact object:
     const contactField = {};
     if (name) contactField.name = name;
-    if (email) contactField, email = email;
+    if (email) contactField.email = email;
     if (phone) contactField.phone = phone;
     if (type) contactField.type = type;
 

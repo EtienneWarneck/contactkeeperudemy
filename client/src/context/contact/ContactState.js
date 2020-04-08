@@ -24,7 +24,8 @@ const ContactState = props => {
         // contacts: [],
         contacts: null,
         current: null, //when Edit is clicked we want data to go in this piece of state and we can change UI based on that
-        filtered: null //Array of filtered contacts that match an input
+        filtered: null, //Array of filtered contacts that match an input
+        error: null
     };
 
     // HOOK useReducer()
@@ -69,7 +70,7 @@ const ContactState = props => {
         try {
             const res = await axios.post('api/contacts', contact, config);
 
-            dispatch({ type: ADD_CONTACT, payload: res.data }) //now sending response to reducer and to DB. Won't be seen on reload
+            dispatch({ type: ADD_CONTACT, payload: res.data }); //now sending response to reducer and to DB. Won't be seen on reload
         } catch (err) {
             dispatch({
                 type: CONTACT_ERROR,
@@ -86,7 +87,7 @@ const ContactState = props => {
         try {
             await axios.delete(`api/contacts/${id}`);
 
-            dispatch({ type: DELETE_CONTACT, payload: id }) //now sending response to reducer and to DB. Won't be seen on reload
+            dispatch({ type: DELETE_CONTACT, payload: id }); //now sending response to reducer and to DB. Won't be seen on reload
         } catch (err) {
             dispatch({
                 type: CONTACT_ERROR,
