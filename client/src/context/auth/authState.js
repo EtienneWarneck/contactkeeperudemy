@@ -44,7 +44,7 @@ const AuthState = props => {
     //ACTIONS: 
 
     //Load User (hit auth endpoint to check what user is logged in and get user data)
-    const loadUser = async() => { //needs to be called in app.js to load every single time our main component loads
+    const loadUser = async () => { //needs to be called in app.js to load every single time our main component loads
         //todo load token into global headers
 
         if (localStorage.token) {
@@ -92,10 +92,31 @@ const AuthState = props => {
     }
 
     //LOGIN (Log in and get token)
-    const login = () => console.log('login')
+    const login = async formData => {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        try {
+            const res = await axios.post('api/auth', formData, config);
+            dispatch({
+                type: LOGIN_SUCCESS,
+                payload: res.data
+            });
+
+            loadUser();
+        } catch (err) {
+            dispatch({
+                type: LOGIN_FAIL,
+                payload: err.response.data.msg
+            });
+        }
+    }
 
     //LOGOUT (destroy token)
-    const logout = () => console.log('logout')
+    const logout = () => dispatch({ type: LOGOUT });
+
 
     //CLEAR ERRORS
     const clearErrors = () => dispatch({ type: CLEAR_ERRORS });

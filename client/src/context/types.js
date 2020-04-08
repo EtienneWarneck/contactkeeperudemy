@@ -7,6 +7,7 @@ export const CLEAR_CURRENT = 'CLEAR_CURRENT';
 export const UPDATE_CONTACT = 'UPDATE_CONTACT';
 export const FILTER_CONTACTS = 'FILTER_CONTACTS';
 export const CLEAR_FILTER = 'CLEAR_FILTER';
+export const CONTACT_ERROR = 'CONTACT_ERROR';
 
 //alerts
 export const SET_ALERT = 'SET_ALERT';

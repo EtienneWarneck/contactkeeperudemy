@@ -62,7 +62,7 @@ router.post('/',
         try {
             let user = await User.findOne({ email }) //returns promise with...
 
-            if (!user) { //if user email doesn't exists
+            if (!user) { //if user email doesn't exists VALIDATION
                 return res.status(400).json({ msg: 'email not found or invalid credential' })
             }
 

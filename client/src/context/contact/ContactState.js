@@ -1,4 +1,5 @@
 import React, { useReducer } from 'react'; //access state and dispatch
+import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid'; //random id for hard coded
 import ContactContext from './contactContext';
 import contactReducer from "./contactReducer";
@@ -9,7 +10,8 @@ import {
     CLEAR_CURRENT,
     UPDATE_CONTACT,
     FILTER_CONTACTS,
-    CLEAR_FILTER
+    CLEAR_FILTER,
+    CONTACT_ERROR
 } from '../types';
 
 // console.log(uuidv4('75442486-0878-440c-9db1-a7006c25a39f')); //true 
@@ -18,27 +20,7 @@ const ContactState = props => {
 
     const initialState = {
         contacts: [
-            {
-                id: 1,
-                name: "Jeremy Low",
-                email: "j@gmail.com",
-                phone: "111-111-1111",
-                type: "personal"
-            },
-            {
-                id: 2,
-                name: "Katie Fojall",
-                email: "k@gmail.com",
-                phone: "222-222-2222",
-                type: "personal"
-            },
-            {
-                id: 3,
-                name: "Villy Salt",
-                email: "v@gmail.com",
-                phone: "333-333-3333",
-                type: "professional"
-            }
+
         ],
         current: null, //when Edit is clicked we want data to go in this piece of state and we can change UI based on that
         filtered: null //Array of filtered contacts that match an input
@@ -55,9 +37,26 @@ const ContactState = props => {
 
     //ACTIONS 
     //Add LEFT side , BUTTON: Add Contact
-    const addContact = contact => { //
-        contact.id = uuidv4(); //RandomID will be removed when we use MongoDB
-        dispatch({ type: ADD_CONTACT, payload: contact }); //2 values sent to reducer: perform 1 action, sent 1 data
+    const addContact = async contact => { //
+        // contact.id = uuidv4(); //RandomID will be removed when we use MongoDB
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+                //token is set globally (setAuthToken.js)
+            }
+        }
+        try {
+            const res = await axios.post('api/contacts', contact, config);
+
+            dispatch({ type: ADD_CONTACT, payload: res.data }) //now sending response to server
+        } catch (err) {
+            dispatch({
+                type: CONTACT_ERROR,
+                payload: err.response.msg
+            })
+        }
+        // dispatch({ type: ADD_CONTACT, payload: contact }); //for hard coded data
+        //2 values sent to reducer: perform 1 action, sent 1 data
     };
 
     // //Delete RIGHT side , BUTTON: Delete
