@@ -31,7 +31,7 @@ if (process.env.NODE_ENV === 'production') { //check environment, if in producti
     app.use(express.static('client/build')); //load static react build folder
     //if we hit homepage, load index.html
     app.get('*', (req, res) =>
-        res.sendFile(path.join(__dirname, 'client/public/index.html')));
+        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html')));
 }
 
 //prod var or whatever we want
