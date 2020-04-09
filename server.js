@@ -2,6 +2,7 @@
 //entry point to back end
 const express = require('express');
 const connectDB = require('./config/db');
+const path = require('path');
 
 //initialize express 
 const app = express();
@@ -14,14 +15,21 @@ app.use(express.json({ extended: false }));
 
 //first endpoint(route) to hit by server
 // app.get('/', (req,res) => res.send("Hello World"));
-app.get('/', (req, res) =>
-    res.json({ msg: "Welcome to Contact Keeper API" }));
+// app.get('/', (req, res) =>
+//     res.json({ msg: "Welcome to Contact Keeper API" }));
 
 //Define Routes
 //Everything that goes to /api/ PATH get forwarded into the file ROUTE that is required
 app.use('/api/users', require('./routes/user'))
 app.use('/api/contacts', require('./routes/contacts'))
 app.use('/api/auth', require('./routes/auth'))
+
+//Serve static assets in production
+if (process.env.NODE_ENV === 'production') { //check environment, if in production
+    app.use(express.static('client/build')) //load static react build folder
+    //if we hit homepage, load index.html
+    app.get('*', (req, res)=> res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))); 
+}
 
 //prod var or whatever we want
 const PORT = process.env.PORT || 5000;
