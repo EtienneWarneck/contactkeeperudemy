@@ -1,4 +1,4 @@
-import {createContext} from 'react';
+import {createContext} from './node_modules/react';
 
 const contactContext = createContext(); 
 

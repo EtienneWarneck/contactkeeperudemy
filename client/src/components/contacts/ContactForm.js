@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react'; //HOOK
-import ContactContext from '../../context/contact/contactContext';
+import ContactContext from '../../Context/contact/contactContext';
 // import { ADD_CONTACT } from '../../context/types';
 
 const ContactForm = () => {

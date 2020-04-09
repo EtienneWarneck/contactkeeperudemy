@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import ContactContext from '../../context/contact/contactContext';
+import ContactContext from '../../Context/contact/contactContext';
 
 const ContactItem = ({ contactPassed }) => {   //{contactPassed} is the prop passed in from Contacts.js
 

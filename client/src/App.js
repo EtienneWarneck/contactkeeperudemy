@@ -11,9 +11,9 @@ import Login from "./components/auth/Login";
 import Alerts from "./components/layout/Alerts";
 import PrivateRoute from './components/routing/PrivateRoute'
 
-import ContactState from "./context/contact/ContactState";
-import AuthState from "./context/auth/AuthState.js";
-import AlertState from "./context/alert/AlertState";
+import ContactState from "./Context/contact/ContactState";
+import AuthState from "./Context/auth/AuthState/AuthState";
+import AlertState from "./Context/alert/AlertState";
 import setAuthToken from "./utils/setAuthToken"
 
 import "./App.css";

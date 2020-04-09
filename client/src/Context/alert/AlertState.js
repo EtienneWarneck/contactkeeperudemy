@@ -1,5 +1,5 @@
-import React, { useReducer } from 'react'; //access state and dispatch
-import { v4 as uuidv4 } from 'uuid'; //random id for hard coded
+import React, { useReducer } from './node_modules/react'; //access state and dispatch
+import { v4 as uuidv4 } from './node_modules/uuid'; //random id for hard coded
 
 import AlertContext from './alertContext';
 import alertReducer from "./alertReducer";

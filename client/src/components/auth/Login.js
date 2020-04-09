@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
-import AlertContext from '../../context/alert/alertContext';
-import AuthContext from '../../context/auth/authContext';
+import AlertContext from '../../Context/alert/alertContext';
+import AuthContext from '../../Context/auth/authContext';
 
 const Login = (props) => {
 
@@ -23,7 +23,7 @@ const Login = (props) => {
         }
         //eslint-disable-next-line
     }, [error, clearErrors, isAuthenticated, props.history])
-    
+
 
     const [user, setUser] = useState({
         email: '',
