@@ -12,7 +12,7 @@ import Alerts from "./components/layout/Alerts";
 import PrivateRoute from './components/routing/PrivateRoute'
 
 import ContactState from "./Context/contact/ContactState";
-import AuthState from "./Context/auth/AuthState/AuthState";
+import AuthState from "./Context/auth/AuthState";
 import AlertState from "./Context/alert/AlertState";
 import setAuthToken from "./utils/setAuthToken"
 
