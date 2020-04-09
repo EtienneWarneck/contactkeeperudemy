@@ -24,11 +24,12 @@ app.use('/api/users', require('./routes/user'))
 app.use('/api/contacts', require('./routes/contacts'))
 app.use('/api/auth', require('./routes/auth'))
 
-//Serve static assets in production
+//Serve static assets REACT in production
 if (process.env.NODE_ENV === 'production') { //check environment, if in production
-    app.use(express.static('client/build')) //load static react build folder
+    app.use(express.static('client/build')); //load static react build folder
     //if we hit homepage, load index.html
-    app.get('*', (req, res)=> res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))); 
+    app.get('*', (req, res) =>
+        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html')));
 }
 
 //prod var or whatever we want
