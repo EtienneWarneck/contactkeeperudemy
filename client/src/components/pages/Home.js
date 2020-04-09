@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import Contacts from '../contacts/Contacts'
 import ContactForm from '../contacts/ContactForm'
 import ContactFilter from '../contacts/contactFilter'
-import AuthContext from '../../Context/auth/authContext'
+import AuthContext from '../../context/auth/authContext'
 
 
 const Home = () => {
