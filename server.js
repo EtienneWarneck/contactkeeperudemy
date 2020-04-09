@@ -15,6 +15,8 @@ app.use(express.json({ extended: false }));
 
 //first endpoint(route) to hit by server
 // app.get('/', (req,res) => res.send("Hello World"));
+
+//remove for deployment:
 // app.get('/', (req, res) =>
 //     res.json({ msg: "Welcome to Contact Keeper API" }));
 

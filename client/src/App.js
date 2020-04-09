@@ -12,11 +12,11 @@ import Alerts from "./components/layout/Alerts";
 import PrivateRoute from './components/routing/PrivateRoute'
 
 import ContactState from "./context/contact/ContactState";
-import AuthState from "./context/auth/AuthState";
+import AuthState from "../src/context/auth/AuthState.js";
 import AlertState from "./context/alert/AlertState";
-import setAuthToken from './utils/setAuthToken'
+import setAuthToken from "./utils/setAuthToken"
 
-import './App.css';
+import "./App.css";
 
 
 //check token every single time the page loads
