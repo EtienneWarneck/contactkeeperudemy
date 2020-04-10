@@ -1,4 +1,4 @@
-import React, { useReducer } from './node_modules/react'; //access state and dispatch
+import React, { useReducer } from 'react'; //access state and dispatch
 import axios from 'axios';
 // import { v4 as uuidv4 } from 'uuid'; //random id for hard coded
 import ContactContext from './contactContext';

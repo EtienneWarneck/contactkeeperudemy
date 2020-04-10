@@ -1,7 +1,7 @@
-import React, { useReducer } from './node_modules/react'; //access state and dispatch
+import React, { useReducer } from 'react'; //access state and dispatch
 import AuthContext from './authContext';
 
-import axios from './node_modules/axios';
+import axios from 'axios';
 
 import authReducer from "./authReducer";
 import setAuthToken from '../../utils/setAuthToken'

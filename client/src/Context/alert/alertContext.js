@@ -1,4 +1,4 @@
-import {createContext } from './node_modules/react';
+import {createContext } from 'react';
 
 const alertContext = createContext();
 
