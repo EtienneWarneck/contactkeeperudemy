@@ -4,7 +4,7 @@ A full stack MERN application using MongoDB.Atlas, React hooks, Express and Node
 
 Tools: React Hooks (useState, useEffect, useContext, useReducer, useRef), MongoDB & Mongoose, Express, JWT (JSON Web Token) for authentication, Node and Heroku for the deployment.
 
-If you wish to test the app, visit the Heroku link: https://radiant-citadel-62356.herokuapp.com/login#!
+If you wish to test the app, visit the Heroku link : https://radiant-citadel-62356.herokuapp.com/register
 
 Registration page:
 
