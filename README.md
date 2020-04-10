@@ -18,7 +18,7 @@ Cluster on MongoDB.Atlas:
 
 ![](assets/mongo.png)
 
-Deployment successfull:
+Deployment successfully achieved with Heroku:
 
 ![](assets/Heroku.png)
 
